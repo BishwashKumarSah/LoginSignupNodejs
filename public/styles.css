@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+html,
+body {
+    height: 100vh;
+    margin: 0px;
+    padding: 0px;
+}
+
+body {
+    width: 100%;
+    position: relative;
+    max-width: 90%;
+    margin: auto;
+    /* min-height: 100vh; */
+    background: #fafafa;
+
+}
+
+footer {
+    opacity: 0.4;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1.2rem;
+    width: 100%;
+    text-align: center;
+    font-size: 1.4rem;
+
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.2rem;
+}
+
+
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 1.2rem;
+
+}
+
+.logo {
+    font-size: 1.9rem !important;
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.nav_link:hover,
+.nav_link:active,
+.nav_link.active {
+    color: red;
+}
+
+.login_links {
+    margin-left: auto;
+}
+
+.login_link {
+    margin-right: 2em;
+}
+
+main.signup_main {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70%;
+    /* border: 1px solid red; */
+
+}
+
+.form_div {
+    width: 30%;
+    min-height: 30vh;
+    padding: 2rem 3rem;
+    background-color: white;
+    box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+input {
+    margin-bottom: 0.4rem;
+    width: 100%;
+    height: 30px;
+    padding: 0 0.4rem;
+}
+
+.login_h1 {
+    margin-bottom: 1rem;
+}
+
+.login_btn {
+    margin-top: 1.2rem;
+    border-radius: 36px;
+    padding: 0.4rem 1rem;
+    background: #FEE996;
+    text-transform: uppercase;
+    border: 0;
+    font-size: 0.8em;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
