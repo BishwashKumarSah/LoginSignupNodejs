@@ -1,8 +1,25 @@
 const User = require("../models/User");
 
+//Error handling for email and password field
 const handleErrors = (err) => {
-  
-}
+  const errors = { email: "", password: "" };
+  // console.log("message",err.message);
+  // console.log("code",err.code);
+
+  //check if the email already exists (code 11000 is for duplicate key error )
+  if (err.code === 11000) {
+    errors.email = "That email already exists";
+    return errors;
+  }
+
+  //email and password validation
+  if (err.message.includes("user validation failed")) {
+    Object.values(err.errors).forEach(({ properties }) => {
+      errors[properties.path] = properties.message;
+    });
+  }
+  return errors;
+};
 
 //login request
 const login_get = (req, res) => {
@@ -26,9 +43,10 @@ const signup_post = async (req, res) => {
   try {
     const user = await User.create({ email, password });
     res.status(201).json(user);
-  } catch (error) {
-    console.log(error);
-    res.status(400).send("error, user not created");
+  } catch (err) {
+    const errors = handleErrors(err);
+    console.log(errors);
+    res.status(400).json(errors);
   }
 };
 

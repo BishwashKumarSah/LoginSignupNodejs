@@ -13,4 +13,16 @@
   </form>
 </main>
 
+<script>
+  const form = document.querySelector("form");
+  form.addEventListener("submit", (e) => {
+    e.preventDefault(); //to prevent the refresh of the page after submitting the form
+
+    //get the values
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+  });
+</script>
+
 <%- include("partials/footer.ejs") %>
