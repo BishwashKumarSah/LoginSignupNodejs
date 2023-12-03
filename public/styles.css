@@ -114,3 +114,8 @@ input {
     font-weight: 700;
     letter-spacing: 2px;
 }
+
+form .error {
+    color: red;
+    font-size: 0.8rem;
+}
