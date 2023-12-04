@@ -3,12 +3,15 @@
 <main class="signup_main">
   <form action="" class="form_div">
     <h1 class="login_h1">Login</h1>
+
+    <div class="email error"></div>
+
     <label for="email">Email:</label>
     <input type="text" required name="email" />
-    <div class="email error"></div>
+
     <label for="password">Password:</label>
     <input type="password" required name="password" />
-    <div class="password error"></div>
+
     <button class="login_btn">login</button>
   </form>
 </main>
@@ -16,7 +19,7 @@
 <script>
   const form = document.querySelector("form");
   const emailError = document.querySelector(".email.error");
-  const password = document.querySelector(".password.error");
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault(); //to prevent the refresh of the page after submitting the form
 
@@ -31,13 +34,11 @@
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           if (data.users) {
-            // location.assign("/");
+            location.assign("/");
           }
           if (data.errors) {
-            emailError.textContent = data.errors.email;
-            passwordError.textContent = data.errors.password;
+            emailError.textContent = data.errors.error;
           }
         });
     } catch (error) {

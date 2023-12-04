@@ -1,15 +1,20 @@
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 
 const User = require("../models/User");
 
 //Error handling for email and password field
 const handleErrors = (err) => {
   const errors = { email: "", password: "" };
+  const loginErrors = { error: "" };
   // console.log("message",err.message);
   // console.log("code",err.code);
-
-  //check if the email already exists (code 11000 is for duplicate key error )
+  if (err.message === "Invalid Username or Password") {
+    loginErrors.error = "Invalid Username or Password";
+    return loginErrors;
+  }
   if (err.code === 11000) {
+    //check if the email already exists (code 11000 is for duplicate key error )
     errors.email = "That email already exists";
     return errors;
   }
@@ -39,10 +44,22 @@ const login_get = (req, res) => {
 const login_post = async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
-  if (user) {
-    res.status(200).json({ users: user._id });
-  } else {
-    res.status(400).json({ errors: "Incorrect UserName or Password" });
+  try {
+    if (user) {
+      const auth = await bcrypt.compare(password, user.password);
+      if (auth) {
+        const jwt = handleCreateJWT(user._id);
+        res.cookie("jwt", jwt, { maxAge: maxAge * 1000, httpOnly: true });
+        res.status(200).json({ users: "undefined" });
+      } else {
+        throw new Error("Invalid Username or Password");
+      }
+    } else {
+      throw new Error("Invalid Username or Password");
+    }
+  } catch (error) {
+    const errors = handleErrors(error);
+    res.status(400).json({ errors });
   }
 };
 
@@ -57,11 +74,11 @@ const signup_post = async (req, res) => {
     const user = await User.create({ email, password });
     // console.log(user._id);  o/p = new ObjectId('656b2ef422728f32662933a4')
     const jwt = handleCreateJWT(user._id);
-    res.cookie("jwt", jwt, { maxAge: maxAge * 1000, httpOnly: false });
+    res.cookie("jwt", jwt, { maxAge: maxAge * 1000, httpOnly: true });
     res.status(201).json({ user: user._id });
   } catch (err) {
     const errors = handleErrors(err);
-    console.log(errors);
+    // console.log(errors);
     res.status(400).json({ errors });
   }
 };
