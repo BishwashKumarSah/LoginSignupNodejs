@@ -11,7 +11,7 @@ const requireAuth = (req, res, next) => {
         console.log(err);
         res.redirect("/users/login");
       } else {
-        console.log(decodedToken);
+        // console.log(decodedToken);
         next();
       }
     });
@@ -26,9 +26,9 @@ const currentUser =  (req, res, next) => {
         res.locals.user = null;
         next();
       } else {
-        const user = await User.findById(decodedToken.id);
-        console.log(user);
-        res.locals.user = user.email;
+        const {email} = await User.findById(decodedToken.id);
+        // console.log(user);
+        res.locals.user = email;
         next();
       }
     });
