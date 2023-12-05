@@ -20,7 +20,7 @@ app.set("views", path.resolve("./views"));
 
 //database connection
 const url =
-  "mongodb+srv://bishwash:bishwash123@cluster0.rj8s1m7.mongodb.net/auth";
+  "mongoUrl";     //include mongoURl
 
 connectToDB(url)
   .then(() => {
