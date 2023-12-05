@@ -68,6 +68,11 @@ a {
     margin-right: 2em;
 }
 
+.inactive_link{
+    pointer-events: none;
+    cursor: default;
+}
+
 main.signup_main {
     width: 100%;
     display: flex;

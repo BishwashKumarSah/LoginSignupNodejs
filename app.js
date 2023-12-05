@@ -3,6 +3,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 
 const authRoutes = require("./routes/authRoutes");
+const { requireAuth, currentUser } = require("./middleware/authMiddleware");
 
 const { connectToDB } = require("./connection");
 
@@ -28,8 +29,9 @@ connectToDB(url)
   })
   .catch((err) => console.log("Couldn't connect to database"));
 
-app.get("/", (req, res) => res.render("home"));
-app.get("/smoothies", (req, res) => res.render("smoothies"));
+app.get("*", currentUser);
+app.get("/", requireAuth, (req, res) => res.render("home"));
+app.get("/smoothies", requireAuth, (req, res) => res.render("smoothies"));
 app.use("/users", authRoutes);
 
 // app.get("/get-cookies", (req, res) => {

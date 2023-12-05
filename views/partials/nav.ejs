@@ -10,8 +10,13 @@
     <nav class="navigation">
       <a href="/" class="logo">Smoothies</a>
       <div class="login_links">
-        <a class="nav_link login_link" href="/users/login">Login</a>
-        <a class="nav_link signup_link" href="/users/signup">Signup</a>
+        <% if(user) {%>
+          <a class="nav_link login_link inactive_link" href="">Welcome, <%= user %></a>
+          <a class="nav_link login_link" href="/users/logout">Logout</a>
+        <% } else {%>        
+          <a class="nav_link login_link" href="/users/login">Login</a>
+          <a class="nav_link signup_link" href="/users/signup">Signup</a>
+        <%}   %>
       </div>
     </nav>
   <%- include("footer.ejs") %>
